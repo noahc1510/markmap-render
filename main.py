@@ -10,9 +10,9 @@ class MarkmapRender():
     <meta charset="utf-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <script src="js/unpkg.com/d3@7.js" type="text/javascript"></script>
-    <script src="js/unpkg.com/markmap-lib@0.15.3.js" type="text/javascript"></script>
-    <script src="js/unpkg.com/markmap-view@0.15.3.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/d3@7" type="text/javascript"></script>
+    <script src="https://unpkg.com/markmap-lib@0.15.3" type="text/javascript"></script>
+    <script src="https://unpkg.com/markmap-view@0.15.3" type="text/javascript"></script>
     <style type="text/css">div.mkdocs-markmap {
         width: 100%;
         min-height: 1em;
@@ -100,17 +100,49 @@ class MarkmapRender():
         return doc
 
 if __name__ == '__main__':
-    source = '''# Root
+    source = '''---
+markmap:
+  colorFreezeLevel: 2
+---
 
-## Branch 1
+# markmap
 
-- Branchlet 1a
-- Branchlet 1b
+## Links
 
-## Branch 2
+- [Website](https://markmap.js.org/)
+- [GitHub](https://github.com/gera2ld/markmap)
 
-- Branchlet 2a
-- Branchlet 2b'''
+## Related Projects
+
+- [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
+- [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
+- [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
+
+## Features
+
+Note that if blocks and lists appear at the same level, the lists will be ignored.
+
+### Lists
+
+- **strong** ~~del~~ *italic* ==highlight==
+- `inline code`
+- [x] checkbox
+- Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ <!-- markmap: fold -->
+  - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
+- Now we can wrap very very very very long text based on `maxWidth` option
+
+### Blocks
+
+```js
+console('hello, JavaScript')
+```
+
+| Products | Price |
+|-|-|
+| Apple | 4 |
+| Banana | 2 |
+
+![](/favicon.png)'''
     render = MarkmapRender()
     with open("test.html", "w") as f:
         f.write(render.render(source))
